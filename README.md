@@ -1,8 +1,7 @@
 # Gutenberg Book Collector
-#### Video Demo: [YouTube](https://youtu.be/avc8Hk1DR-0)
 #### Description: Collects data from [gutenberg.org](https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv) and acquires books information.
 
-Book Gutenberg Collector is an API service that allows users to collect book information from Gutenberg.org and store it in a MongoDB database. This service provides endpoints for accessing, updating, and deleting book data.
+Gutenberg Book Collector is an API service that allows users to collect book information from Gutenberg.org and store it in a MongoDB database. This service provides endpoints for accessing, updating, and deleting book data.
 
 ### Postman Collection
 You can test all API endpoints using Postman.
