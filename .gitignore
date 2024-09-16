@@ -3,3 +3,5 @@ src/.env
 security/secretkey.generator.js
 
 todo.js
+cert.pem
+key.pem

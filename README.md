@@ -28,8 +28,9 @@ You can test all API endpoints using Postman.
 
 ### Requirements:
 #### mongoDB
-You can create a MongoDB cluster at [MongoDB](https://www.mongodb.com/).
-Ensure that you have MongoDB set up and accessible, either locally or via a cloud database.
+You can create a MongoDB cluster at [MongoDB](https://www.mongodb.com/). </br>
+Ensure that you have MongoDB set up and accessible, either locally or via a cloud database. </br>
+**OpenSSL certificate required.** </br>
 
 ### Installation:
 1. Create a `.env` file in `src` directory with `MONGO_URL=url`, `PORT=3000` and a `SECRET_KEY=random-secure-key`.
