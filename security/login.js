@@ -4,9 +4,12 @@ const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY;
 
 async function hashPassword(password) {
+    if (password.auth_create) {
+        return null;
+    }
     return new Promise((resolve, reject) => {
         const salt = crypto.randomBytes(32).toString('hex'); // Generate random salt
-        crypto.pbkdf2(password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
+        crypto.pbkdf2(password.password, salt, 1000, 64, 'sha512', (err, derivedKey) => {
             if (err) reject(err);
             resolve({
                 salt: salt,

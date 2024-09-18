@@ -4,6 +4,7 @@ const {
     verifyPassword,
     tokenGeneration,
 } = require('../../security/login');
+const passport = require('passport');
 
 async function findUserByCredential(credential) {
     try {
@@ -66,28 +67,31 @@ async function postUser(user) {
 
         }, { __v: 0, _id: 0 });
 
-        if (user.username) {
-            if (user.username.includes(' ')) {
-                has_error.username_spaces = true;
-            }
-        } else {
-            has_error.missing_username = true;
-        }
-
         if (user_exists) {
             has_error.username_exists = true;
         }
 
-        if (user.password) {
-            if (user.password.includes(' ')) {
-                has_error.password_spaces = true;
-            }
-        } else {
-            has_error.missing_password = true;
-        }
-
         if (!valid_roles.includes(user.role)) {
             has_error.invalid_role = true;
+        }
+
+        if (!user.auth_create) {
+            if (user.username) {
+                if (user.username.includes(' ')) {
+                    has_error.username_spaces = true;
+                }
+            } else {
+                has_error.missing_username = true;
+            }
+
+            if (user.password) {
+                if (user.password.includes(' ')) {
+                    has_error.password_spaces = true;
+                }
+            } else {
+                has_error.missing_password = true;
+            }
+
         }
 
         if (has_error.missing_username === true || has_error.username_spaces === true || has_error.missing_password === true || has_error.password_spaces === true || has_error.invalid_role === true || has_error.username_exists === true) {
@@ -96,12 +100,17 @@ async function postUser(user) {
 
         if (has_error.error === false) {
             const id = await User.countDocuments();
-            const passwordObject = await hashPassword(user.password);
+            const passwordObject = await hashPassword(user);
+
             const result = await User.create({
                 username: user.username,
-                salt: passwordObject.salt,
-                hash: passwordObject.hash,
+                salt: passwordObject.salt || null,
+                hash: passwordObject.hash || null,
                 role: user.role,
+                oauth: {
+                    provider: user.provider || null,
+                    provider_id: user.provider_id || null,
+                },
                 id: id,
             });
             const returnResult = result.toObject();
@@ -109,6 +118,8 @@ async function postUser(user) {
             delete returnResult._id;
             delete returnResult.hash;
             delete returnResult.salt;
+            delete returnResult.provider;
+            delete returnResult.provider_id;
             return returnResult;
         }
         throw new Error(`Something went wrong...`);

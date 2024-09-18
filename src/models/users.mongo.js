@@ -8,15 +8,25 @@ const userSchema = new Schema({
     },
     salt: {
         type: String,
-        required: true,
+        required: false,
     },
     hash: {
         type: String,
-        required: true,
+        required: false,
     },
     role: {
         type: String,
         required: true,
+    },
+    oauth: {
+        provider: {
+            type: String,
+            required: false,
+        },
+        provider_id: {
+            type: String,
+            required: false,
+        },
     },
     id: {
         type: Number,

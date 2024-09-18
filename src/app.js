@@ -1,13 +1,16 @@
+const cors = require('cors');
+const helmet = require('helmet');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 
+const authRouter = require('./routes/auth.router');
 const booksRouter = require('./routes/books.router');
-const gutenbergRouter = require('./routes/gutenberg.router');
 const usersRouter = require('./routes/users.router');
+const gutenbergRouter = require('./routes/gutenberg.router');
 
 const app = express();
 
+app.use(helmet());
 app.use(cookieParser());
 
 var corsOptions = {
@@ -29,8 +32,12 @@ app.use(
 
 app.use(express.json());
 
+app.use('/auth', authRouter); // login and logout in usersRouter should be moved to /auth
 app.use('/books', booksRouter); // BOOKS router
-app.use('/collect_gutenberg', gutenbergRouter); // start Collector
 app.use('/users', usersRouter); // USERS router
+app.use('/collect_gutenberg', gutenbergRouter); // start Collector
+app.use('/failure', (req, res) => {
+    return res.send('Failed to log in...');
+}); // start Collector
 
 module.exports = app;

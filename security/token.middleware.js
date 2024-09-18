@@ -10,7 +10,7 @@ function authenticateToken(req, res, next) {
     }
 
     jwt.verify(token, SECRET_KEY, (err, user) => {
-        if (err || user.role !== 'admin') {
+        if (err || user.role !== 'admin') { // needs a check permissions function for checking Role
             return res.status(403).json({ error: 'Access denied...' });
         }
         
