@@ -1,13 +1,9 @@
 const express = require('express');
 
-const { authenticateToken } = require('../../security/token.middleware');
-
 const gutenbergRouter = express.Router(); // CREATE ROUTER
-
 const { gutenbergParser } = require('../../data/gutenberg.collector');
+const { adminOnly } = require('../security/access');
 
-gutenbergRouter.use(authenticateToken);
-
-gutenbergRouter.get('/', gutenbergParser);
+gutenbergRouter.get('/', adminOnly, gutenbergParser);
 
 module.exports = gutenbergRouter;

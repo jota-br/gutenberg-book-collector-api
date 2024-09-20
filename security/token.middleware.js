@@ -14,9 +14,9 @@ function authenticateToken(req, res, next) {
             return res.status(403).json({ error: 'Access denied...' });
         }
         
-        let date = new Date(Date.now());
-        let time = date.toString();
-        console.log(`user: ${user.username} : role: ${user.role} @ ${req.originalUrl} - ${time}`);
+        // let date = new Date(Date.now());
+        // let time = date.toString();
+        // console.log(`user: ${user.username} : role: ${user.role} @ ${req.originalUrl} - ${time}`);
 
         req.user = user;
         next();

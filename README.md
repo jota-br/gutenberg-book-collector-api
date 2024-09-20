@@ -1,3 +1,5 @@
+# Doc is Outdated > 2.1.0
+
 # Gutenberg Book Collector
 #### Description: Collects data from [gutenberg.org](https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv) and acquires books information.
 

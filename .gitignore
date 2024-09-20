@@ -1,7 +1,13 @@
+# misc
 node_modules
-src/.env
-security/secretkey.generator.js
+security
 
+# Planning
 todo.js
+
+# TLS
 cert.pem
 key.pem
+
+# Security
+src/.env

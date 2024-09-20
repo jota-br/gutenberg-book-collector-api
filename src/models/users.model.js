@@ -1,50 +1,16 @@
 const User = require('./users.mongo');
+
 const { 
-    hashPassword, 
-    verifyPassword,
-    tokenGeneration,
-} = require('../../security/login');
-const passport = require('passport');
+    hashPassword,
+} = require('../security/password');
 
-async function findUserByCredential(credential) {
+async function findUserByUsername(username) {
     try {
-        const user_credential = await User.findOne({
-            username: credential.username,
-
+        return await User.findOne({
+            username: username,
         }, { __v: 0, _id: 0 });
-        if (user_credential) {
-            const is_valid_credential = await verifyPassword(credential.password, user_credential.salt, user_credential.hash);
-            return { user_credential, is_valid_credential };
-        }
-        throw new Error(`Something went wrong... User credential is: ${user_credential}`);
     } catch (err) {
         return { error: err.message };
-    }
-}
-
-async function userLogin(credential) {
-    let has_error = {
-        invalid_credential: false,
-        error: false,
-    };
-
-    try {
-        const { user_credential, is_valid_credential } = await findUserByCredential(credential);
-        if (is_valid_credential.error || is_valid_credential === false) {
-            has_error.invalid_credential = true;
-        }
-
-        if (has_error.invalid_credential === true) {
-            has_error.error = true;
-        }
-
-        if (has_error.error === false) {
-            const token = await tokenGeneration(user_credential, is_valid_credential);
-            return token;
-        }
-        throw new Error(`Something went wrong...`);
-    } catch (err) {
-        return has_error;
     }
 }
 
@@ -62,10 +28,7 @@ async function postUser(user) {
     let valid_roles = ['admin', 'user'];
 
     try {
-        const user_exists = await User.findOne({
-            username: user.username,
-
-        }, { __v: 0, _id: 0 });
+        const user_exists = await findUserByUsername(user.username);
 
         if (user_exists) {
             has_error.username_exists = true;
@@ -141,7 +104,7 @@ async function deleteUserById(id) {
 }
 
 module.exports = {
-    userLogin,
+    findUserByUsername,
     postUser,
     deleteUserById,
 }

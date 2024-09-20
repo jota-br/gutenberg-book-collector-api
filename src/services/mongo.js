@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const MONGO_URL = process.env.MONGO_URL;
-const MONGO_USERS_URL = process.env.MONGO_USERS_URL;
 
 try {
     mongoose.connection.once('open', () => {

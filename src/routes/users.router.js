@@ -1,16 +1,17 @@
 const express = require('express');
 
-const { authenticateToken } = require('../../security/token.middleware');
-
 const usersRouter = express.Router(); // CREATE ROUTER
 
 const {
-    httpUserLogin,
-    httpUserLogout,
     httpPostUser,
     httpDeleteUserById,
 
 } = require('./users.controller');
+
+const { 
+    userOnly,
+    adminOnly, 
+} = require('../security/access');
 
 async function localAccess(req, res, next) {
     const reqIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
@@ -22,8 +23,6 @@ async function localAccess(req, res, next) {
 }
 
 usersRouter.post('/create_admin', localAccess, httpPostUser);
-usersRouter.post('/login', httpUserLogin);
-usersRouter.post('/logout', httpUserLogout);
-usersRouter.post('/delete/:id', authenticateToken, httpDeleteUserById);
+usersRouter.post('/delete/:id', adminOnly, httpDeleteUserById);
 
 module.exports = usersRouter;

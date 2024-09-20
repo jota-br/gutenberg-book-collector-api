@@ -1,4 +1,4 @@
-const { postUser } = require('../src/models/users.model')
+const { postUser } = require('../src/models/users.model');
 
 const config = {
     CLIENT_ID: process.env.CLIENT_ID,
