@@ -273,6 +273,7 @@ describe('Launches API', () => {
     });
 
     describe('Logged in as Admin', () => {
+        let session;
         test('Login should respond 200 OK', async () => {
             const mockUserData = {
                 username: 'secretUser',
@@ -285,6 +286,20 @@ describe('Launches API', () => {
             const response = await request(app)
                 .post('/auth/login')
                 .send(mockUserData)
+                .expect('Content-Type', /json/)
+                .expect(200)
+
+            expect(response.body).toMatchObject(returnData);
+            session = response.headers['set-cookie'];
+        });
+
+        test('Collect data', async () => {
+            const returnData = {
+                "msg": "Collector started..."
+            }
+            const response = await request(app)
+                .get('/collect_gutenberg')
+                .set('Cookie', session)
                 .expect('Content-Type', /json/)
                 .expect(200)
 

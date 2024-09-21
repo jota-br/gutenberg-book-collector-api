@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "main": "src/server.js",
   "scripts": {
-    "test": "cd src && jest --detectOpenHandles",
+    "test": "cd src && jest",
     "start": "cd src && node server.js",
     "watch-g": "cd src && nodemon server.js"
   },
