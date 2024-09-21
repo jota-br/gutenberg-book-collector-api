@@ -264,6 +264,42 @@ describe('Launches API', () => {
                 expect(response.body).toMatchObject(returnData);
             });
 
+            describe('Get /books', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
+            describe('Get /books/:id', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/900012345')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
+            describe('Get /books/:author/', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/author/Jason')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
+            describe('Get /books/:subject/', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/subject/thriller')
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
             test('Should respond 200 OK', async () => {
                 const returnData = {
                     "msg": "Book with gutenbergId 900012345 was deleted..."
@@ -276,42 +312,6 @@ describe('Launches API', () => {
 
                 expect(response.body).toMatchObject(returnData);
             });
-        });
-    });
-
-    describe('Get /books', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:id', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/900012345')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:author/', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/author/Jason')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:subject/', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/subject/thriller')
-                .expect('Content-Type', /json/)
-                .expect(200)
         });
     });
 
