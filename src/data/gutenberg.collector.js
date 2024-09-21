@@ -1,7 +1,7 @@
 const https = require('https');
 const csv = require('csv-parser');
 
-const { upsertBook } = require('../src/models/books.model')
+const { upsertBook } = require('../models/books.model')
 
 const url = 'https://www.gutenberg.org/cache/epub/feeds/pg_catalog.csv';
 
