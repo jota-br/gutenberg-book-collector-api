@@ -10,6 +10,11 @@ jobs:
     env:
       CI: true
       MONGO_URL: mongodb://localhost/Collector
+      SECRET_KEY: rand
+      CLIENT_ID: rand
+      CLIENT_SECRET: rand
+      COOKIE_KEY_1: rand
+      COOKIE_KEY_2: rand
     strategy:
       matrix:
         node-version: [ 20.x, 22.x ]
