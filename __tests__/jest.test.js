@@ -196,7 +196,7 @@ describe('Launches API', () => {
 
     describe('Login and Books', () => {
         let session;
-        
+
         test('Login should respond 200 OK', async () => {
             const mockUserData = {
                 username: 'secretUser',
@@ -287,13 +287,13 @@ describe('Launches API', () => {
             });
         });
 
-        describe('Delete /books/:id', () => {
+        describe('Delete /books/delete/:id', () => {
             test('Should respond 200 OK', async () => {
                 const returnData = {
                     "msg": "Book with gutenbergId 900012345 was deleted..."
                 }
                 const response = await request(app)
-                    .post('/books/900012345')
+                    .post('/books/delete/900012345')
                     .set('Cookie', session)
                     .expect('Content-Type', /json/)
                     .expect(200)
