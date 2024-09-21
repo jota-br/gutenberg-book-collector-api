@@ -1,23 +1,24 @@
 name: gutenberg-book-collector-api
 on:
-    push:
-        branches: [ master ]
-    pull_request:
-        branches: [ master ]
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
 jobs:
-    build:
-        env:
-            CI: true
-        strategy:
-            matrix:
-                node-version: [ 20.x, 22.x ]
-                os: [ 'ubuntu-lastest', 'windows-lastest', 'macos-lastest' ]
-        runs-on: ${{ matrix.os }}
-        steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4.0.4
-                with: 
-                    node-version: ${{ matrix.node-version }}
-            - uses: timgchile/mongodb-github-action@1.7.4
-            - run: npm install
-            - run: npm test
+  build:
+    env:
+      CI: true
+    strategy:
+      matrix:
+        node-version: [ 20.x, 22.x ]
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4.0.4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - uses: timgchile/mongodb-github-action@1.7.4
+      - run: npm install
+      - run: npm test
