@@ -238,7 +238,7 @@ describe('Launches API', () => {
                     "url": "https://www.gutenberg.org/ebooks/900012345"
                 }
                 const response = await request(app)
-                    .get('/books')
+                    .post('/books')
                     .set('Cookie', session)
                     .expect('Content-Type', /json/)
                     .expect(201)
