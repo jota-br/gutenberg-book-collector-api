@@ -9,9 +9,11 @@ jobs:
   build:
     env:
       CI: true
+      MONGO_URL: mongodb://localhost/Collector
     strategy:
       matrix:
         node-version: [ 20.x, 22.x ]
+        mongodb-version: [ '7.0.12' ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
