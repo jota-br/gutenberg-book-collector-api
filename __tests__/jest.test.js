@@ -214,26 +214,6 @@ describe('Launches API', () => {
             session = response.headers['set-cookie'];
         });
 
-        let session;
-        test('Login should respond 200 OK', async () => {
-            const mockUserData = {
-                username: 'secretUser',
-                password: secretKey,
-            };
-            const returnData = {
-                username: 'secretUser',
-                role: 'admin',
-            };
-            const response = await request(app)
-                .post('/auth/login')
-                .send(mockUserData)
-                .expect('Content-Type', /json/)
-                .expect(200)
-
-            expect(response.body).toMatchObject(returnData);
-            session = response.headers['set-cookie'];
-        });
-
         describe('POST /books', () => {
             test('Should respond 201 Created', async () => {
                 const mockBookData = {
@@ -263,53 +243,55 @@ describe('Launches API', () => {
 
                 expect(response.body).toMatchObject(returnData);
             });
+        });
 
-            describe('Get /books', () => {
-                test('Should respond 200 OK', async () => {
-                    const response = await request(app)
-                        .get('/books')
-                        .set('Cookie', session)
-                        .expect('Content-Type', /json/)
-                        .expect(200)
-                });
+        describe('Get /books', () => {
+            test('Should respond 200 OK', async () => {
+                const response = await request(app)
+                    .get('/books')
+                    .set('Cookie', session)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
             });
+        });
 
-            describe('Get /books/:id', () => {
-                test('Should respond 200 OK', async () => {
-                    const response = await request(app)
-                        .get('/books/900012345')
-                        .set('Cookie', session)
-                        .expect('Content-Type', /json/)
-                        .expect(200)
-                });
+        describe('Get /books/:id', () => {
+            test('Should respond 200 OK', async () => {
+                const response = await request(app)
+                    .get('/books/900012345')
+                    .set('Cookie', session)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
             });
+        });
 
-            describe('Get /books/:author/', () => {
-                test('Should respond 200 OK', async () => {
-                    const response = await request(app)
-                        .get('/books/author/Jason')
-                        .set('Cookie', session)
-                        .expect('Content-Type', /json/)
-                        .expect(200)
-                });
+        describe('Get /books/:author/', () => {
+            test('Should respond 200 OK', async () => {
+                const response = await request(app)
+                    .get('/books/author/Jason')
+                    .set('Cookie', session)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
             });
+        });
 
-            describe('Get /books/:subject/', () => {
-                test('Should respond 200 OK', async () => {
-                    const response = await request(app)
-                        .get('/books/subject/thriller')
-                        .set('Cookie', session)
-                        .expect('Content-Type', /json/)
-                        .expect(200)
-                });
+        describe('Get /books/:subject/', () => {
+            test('Should respond 200 OK', async () => {
+                const response = await request(app)
+                    .get('/books/subject/thriller')
+                    .set('Cookie', session)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
             });
+        });
 
+        describe('Delete /books/:id', () => {
             test('Should respond 200 OK', async () => {
                 const returnData = {
-                    "msg": "Book with gutenbergId 900012346 was deleted..."
+                    "msg": "Book with gutenbergId 900012345 was deleted..."
                 }
                 const response = await request(app)
-                    .post('/books/900012346')
+                    .post('/books/900012345')
                     .set('Cookie', session)
                     .expect('Content-Type', /json/)
                     .expect(200)
