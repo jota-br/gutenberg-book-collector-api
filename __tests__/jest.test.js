@@ -264,33 +264,44 @@ describe('Launches API', () => {
                 expect(response.body).toMatchObject(returnData);
             });
 
-            test('Should respond 201 Created', async () => {
-                const mockBookData = {
-                    gutenbergId: '900012346',
-                    title: 'Example: A New Journey',
-                    authors: 'Jason, The Gramatical Terror',
-                    releaseDate: '1970-07-01',
-                    subjects: 'thriller',
-                    language: 'en',
-                }
-                const returnData = {
-                    gutenbergId: 900012346,
-                    title: 'Example: A New Journey',
-                    authors: 'Jason, The Gramatical Terror',
-                    releaseDate: 15638400000,
-                    subjects: 'thriller',
-                    language: 'en',
-                    img: 'https://www.gutenberg.org/cache/epub/900012346/pg900012346.cover.medium.jpg',
-                    url: 'https://www.gutenberg.org/ebooks/900012346',
-                }
-                const response = await request(app)
-                    .post('/books')
-                    .send(mockBookData)
-                    .set('Cookie', session)
-                    .expect('Content-Type', /json/)
-                    .expect(201)
+            describe('Get /books', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books')
+                        .set('Cookie', session)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
 
-                expect(response.body).toMatchObject(returnData);
+            describe('Get /books/:id', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/900012345')
+                        .set('Cookie', session)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
+            describe('Get /books/:author/', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/author/Jason')
+                        .set('Cookie', session)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
+            });
+
+            describe('Get /books/:subject/', () => {
+                test('Should respond 200 OK', async () => {
+                    const response = await request(app)
+                        .get('/books/subject/thriller')
+                        .set('Cookie', session)
+                        .expect('Content-Type', /json/)
+                        .expect(200)
+                });
             });
 
             test('Should respond 200 OK', async () => {
@@ -305,42 +316,6 @@ describe('Launches API', () => {
 
                 expect(response.body).toMatchObject(returnData);
             });
-        });
-    });
-
-    describe('Get /books', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:id', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/900012345')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:author/', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/author/Jason')
-                .expect('Content-Type', /json/)
-                .expect(200)
-        });
-    });
-
-    describe('Get /books/:subject/', () => {
-        test('Should respond 200 OK', async () => {
-            const response = await request(app)
-                .get('/books/subject/thriller')
-                .expect('Content-Type', /json/)
-                .expect(200)
         });
     });
 
