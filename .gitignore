@@ -6,8 +6,8 @@ misc_keep
 todo.js
 
 # TLS
-cert.pem
-key.pem
+src/cert.pem
+src/key.pem
 
 # Security
 src/.env
