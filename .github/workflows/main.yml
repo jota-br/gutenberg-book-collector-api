@@ -11,9 +11,8 @@ jobs:
       CI: true
     strategy:
       matrix:
-        node-version: [ 22.x ]
-        os: [ ubuntu-latest, windows-latest, macos-latest ]
-    runs-on: ${{ matrix.os }}
+        node-version: [ 20.x, 22.x ]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4.0.4
