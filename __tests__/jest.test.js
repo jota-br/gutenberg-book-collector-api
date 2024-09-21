@@ -195,6 +195,8 @@ describe('Launches API', () => {
     });
 
     describe('Login and Books', () => {
+        let session;
+        
         test('Login should respond 200 OK', async () => {
             const mockUserData = {
                 username: 'secretUser',
