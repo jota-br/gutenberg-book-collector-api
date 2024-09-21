@@ -5,6 +5,8 @@ const passport = require('passport');
 const { Strategy } = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 
+require('dotenv').config();
+
 const { postUser } = require('./models/users.model');
 
 const authRouter = require('./routes/auth.router');

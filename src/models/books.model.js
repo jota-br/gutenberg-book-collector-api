@@ -114,10 +114,10 @@ async function upsertBook(data) {
             }, {
                 gutenbergId: Number(book_id),
                 title: book_title,
-                authors: book_authors,
-                releaseDate: timestamp,
-                subjects: book_subjects,
-                language: book_language,
+                authors: book_authors || null,
+                releaseDate: timestamp || null,
+                subjects: book_subjects || null,
+                language: book_language || null,
                 img: img,
                 url: url,
             }, {
@@ -125,9 +125,19 @@ async function upsertBook(data) {
             });
 
             if (result.acknowledged === true) {
+                const returnBook = {
+                    gutenbergId: Number(book_id),
+                    title: book_title,
+                    authors: book_authors || null,
+                    releaseDate: timestamp || null,
+                    subjects: book_subjects || null,
+                    language: book_language || null,
+                    img: img,
+                    url: url,
+                }
                 console.log(`Upsert success: ${book_id} - ${book_title}`);
                 book.releaseDate = timestamp;
-                return book;
+                return returnBook;
             }
         }
         throw new Error(`Something went wrong...`);

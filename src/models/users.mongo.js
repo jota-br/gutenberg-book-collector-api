@@ -28,10 +28,6 @@ const userSchema = new Schema({
             required: false,
         },
     },
-    id: {
-        type: Number,
-        required: true,
-    },
 });
 
 module.exports = model('user', userSchema);

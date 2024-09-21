@@ -62,7 +62,6 @@ async function postUser(user) {
         }
 
         if (has_error.error === false) {
-            const id = await User.countDocuments();
             const passwordObject = await hashPassword(user);
 
             const result = await User.create({
@@ -74,7 +73,6 @@ async function postUser(user) {
                     provider: user.provider || null,
                     provider_id: user.provider_id || null,
                 },
-                id: id,
             });
             const returnResult = result.toObject();
             delete returnResult.__v;
@@ -93,7 +91,7 @@ async function postUser(user) {
 
 async function deleteUserById(id) {
     try {
-        const result = await User.deleteOne({ id: id });
+        const result = await User.deleteOne({ _id: id });
         if (result.acknowledged === true && result.deletedCount === 1) {
             return { msg: `User with id ${id} was deleted...` };
         }

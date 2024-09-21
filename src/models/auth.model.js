@@ -23,8 +23,9 @@ async function authLogin(data) {
                 return user;
             }
             has_error.invalid_credential = true;
+        } else {
+            has_error.invalid_username = true;
         }
-        has_error.invalid_username = true;
         if (has_error.invalid_username || has_error.invalid_credential) {
             has_error.error = true;
         }

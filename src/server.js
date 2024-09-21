@@ -1,8 +1,6 @@
 const https = require('https');
 const fs = require('fs');
 
-require('dotenv').config();
-
 const app = require('./app');
 const { mongoConnect } = require('./services/mongo');
 

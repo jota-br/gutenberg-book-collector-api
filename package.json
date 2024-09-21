@@ -1,9 +1,9 @@
 {
   "name": "gutenberg-book-collector-api",
   "version": "3.0.0",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cd src && jest --detectOpenHandles",
     "start": "cd src && node server.js",
     "watch-g": "cd src && nodemon server.js"
   },
@@ -11,6 +11,9 @@
   "author": "João Carlos Roveda Ostrovski",
   "license": "Creative Commons Attribution-ShareAlike 4.0 International",
   "description": "Book Gutenberg Collector is an API service that allows users to collect book information from Gutenberg.org and store it in a MongoDB database. This service provides endpoints for accessing, updating, and deleting book data.",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "cookie-session": "^2.1.0",
     "cors": "^2.8.5",

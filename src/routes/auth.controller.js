@@ -7,9 +7,12 @@ async function httpAuthLogin(req, res) {
         const data = req.body;
         const result = await authLogin(data);
         if (!result.error) {
-            req.session.user = result.username;
+            req.session.username = result.username;
             req.session.role = result.role;
-            return res.status(200).json(req.session);
+            return res.status(200).json({ 
+                username: req.session.username, 
+                role: req.session.role,
+            });
         }
         return res.status(400).json(result);
     } catch (err) {

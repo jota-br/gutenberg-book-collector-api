@@ -15,7 +15,7 @@ const {
 
 async function localAccess(req, res, next) {
     const reqIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-    if (reqIp === '127.0.0.1' || reqIp === '::1') {
+    if (reqIp === '127.0.0.1' || reqIp === '::1' || reqIp === '::ffff:127.0.0.1') {
         next();
     } else {
         res.status(403).json({ error: 'Access denied...' });
