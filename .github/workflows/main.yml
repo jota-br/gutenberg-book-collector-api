@@ -1,0 +1,22 @@
+name: gutenberg-book-collector-api
+on:
+    push:
+        branches: [ master ]
+    pull_request:
+        branches: [ master ]
+jobs:
+    build:
+        env:
+            CI: true
+        strategy:
+            matrix:
+                node-version: [ 20.x, 22.x ]
+        runs-on: [ 'ubuntu-lastest', 'windows-lastest', 'macos-lastest' ]
+        steps:
+            - uses: actions/checkout@v4
+            - name: Use Node.js version ${{ matrix.node-version }}
+                uses: actions/setup-node@v4
+                with:
+                    node-version: ${{ matrix.node-version }}
+            - run: npm install
+            - run: npm test
