@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "João Carlos Roveda Ostrovski",
   "license": "Creative Commons Attribution-ShareAlike 4.0 International",
-  "description": "Book Gutenberg Collector is an API service that allows users to collect book information from Gutenberg.org and store it in a MongoDB database. This service provides endpoints for accessing, updating, and deleting book data.",
+  "description": "Gutenberg Book Collector is an API service that allows users to collect book information from Gutenberg.org and store it in a MongoDB database. This service provides endpoints for accessing, updating, and deleting book data.",
   "jest": {
     "testEnvironment": "node"
   },
