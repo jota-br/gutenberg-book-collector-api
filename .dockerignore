@@ -1,6 +1,7 @@
 # misc
 node_modules
 misc_keep
+.git
 
 # Planning
 todo.js
