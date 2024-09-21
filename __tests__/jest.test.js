@@ -223,7 +223,7 @@ describe('Launches API', () => {
                     gutenbergId: '900012345',
                     title: 'Example: A New Journey',
                     authors: 'Jason, The Gramatical Terror',
-                    releaseDate: '1 jul 1975',
+                    releaseDate: '1970-07-01',
                     subjects: 'thriller',
                     language: 'en',
                 }
