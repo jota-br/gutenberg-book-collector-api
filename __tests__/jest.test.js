@@ -239,6 +239,7 @@ describe('Launches API', () => {
                 }
                 const response = await request(app)
                     .post('/books')
+                    .send(mockBookData)
                     .set('Cookie', session)
                     .expect('Content-Type', /json/)
                     .expect(201)
