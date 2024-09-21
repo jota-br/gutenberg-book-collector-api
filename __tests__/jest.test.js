@@ -7,8 +7,6 @@ const {
     mongoDisconnect,
 } = require('../src/services/mongo');
 
-const { gutenbergParser } = require('../data/gutenberg.collector');
-
 describe('Launches API', () => {
     const secretKey = crypto.randomBytes(32).toString('hex');
 
@@ -196,7 +194,26 @@ describe('Launches API', () => {
         });
     });
 
-    describe('Logged in as Admin', () => {
+    describe('Login and Books', () => {
+        test('Login should respond 200 OK', async () => {
+            const mockUserData = {
+                username: 'secretUser',
+                password: secretKey,
+            };
+            const returnData = {
+                username: 'secretUser',
+                role: 'admin',
+            };
+            const response = await request(app)
+                .post('/auth/login')
+                .send(mockUserData)
+                .expect('Content-Type', /json/)
+                .expect(200)
+
+            expect(response.body).toMatchObject(returnData);
+            session = response.headers['set-cookie'];
+        });
+
         let session;
         test('Login should respond 200 OK', async () => {
             const mockUserData = {
@@ -243,6 +260,19 @@ describe('Launches API', () => {
                     .set('Cookie', session)
                     .expect('Content-Type', /json/)
                     .expect(201)
+
+                expect(response.body).toMatchObject(returnData);
+            });
+
+            test('Should respond 200 OK', async () => {
+                const returnData = {
+                    "msg": "Book with gutenbergId 900012345 was deleted..."
+                }
+                const response = await request(app)
+                    .post('/books/900012345')
+                    .set('Cookie', session)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
 
                 expect(response.body).toMatchObject(returnData);
             });
